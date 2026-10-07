@@ -1,0 +1,117 @@
+---
+---
+
+<svg
+  class="sourcing-diagram"
+  viewBox="0 0 600 300"
+  role="img"
+  aria-label="Diagram: one MadCap Flare source fanning out to five output targets before the migration, versus one Markdown source feeding two outputs after it"
+>
+  <text x="0" y="14" class="row-label row-label--before">Before</text>
+  <rect x="0" y="50" width="140" height="44" rx="3" class="box box--before" />
+  <text x="70" y="68" text-anchor="middle" class="box-text">Flare source</text>
+  <text x="70" y="82" text-anchor="middle" class="box-sub">591 topics</text>
+
+  {
+    ["WebHelp", "WebHelp", "WebHelp", "Word", "CleanXHTML"].map((label, i) => {
+      const y = 14 + i * 26;
+      const midY = y + 10;
+      return (
+        <>
+          <path
+            d={`M140,72 C 270,72 280,${midY} 410,${midY}`}
+            class="link link--before"
+          />
+          <rect x="410" y={y} width="180" height="20" rx="2" class="box box--target" />
+          <text x="420" y={y + 14} class="target-text">
+            {label}
+          </text>
+        </>
+      );
+    })
+  }
+
+  <text x="0" y="194" class="row-label row-label--after">After</text>
+  <rect x="0" y="230" width="140" height="44" rx="3" class="box box--after" />
+  <text x="70" y="248" text-anchor="middle" class="box-text">Markdown source</text>
+  <text x="70" y="262" text-anchor="middle" class="box-sub">MkDocs Material</text>
+
+  <path d="M140,252 C 270,252 280,226 410,226" class="link link--after" />
+  <rect x="410" y="214" width="180" height="20" rx="2" class="box box--target" />
+  <text x="420" y="228" class="target-text">Site (GitHub Pages)</text>
+
+  <path d="M140,252 C 270,252 280,262 410,262" class="link link--after link--dashed" />
+  <rect x="410" y="252" width="180" height="20" rx="2" class="box box--target" />
+  <text x="420" y="266" class="target-text">Word (via Pandoc)</text>
+</svg>
+
+<style>
+  .sourcing-diagram {
+    width: 100%;
+    height: auto;
+    margin-top: 8px;
+  }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+
+  .row-label--before {
+    fill: var(--accent-edit);
+  }
+
+  .row-label--after {
+    fill: var(--accent);
+  }
+
+  .box {
+    fill: var(--bg-panel);
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+
+  .box--before {
+    stroke: var(--accent-edit);
+  }
+
+  .box--after {
+    stroke: var(--accent);
+  }
+
+  .box-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--text);
+  }
+
+  .box-sub {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    fill: var(--text-muted);
+  }
+
+  .target-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    fill: var(--text-muted);
+  }
+
+  .link {
+    fill: none;
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+
+  .link--before {
+    stroke: color-mix(in srgb, var(--accent-edit) 55%, var(--rule));
+  }
+
+  .link--after {
+    stroke: color-mix(in srgb, var(--accent) 55%, var(--rule));
+  }
+
+  .link--dashed {
+    stroke-dasharray: 3 3;
+  }
+</style>

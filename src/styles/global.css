@@ -1,0 +1,143 @@
+:root {
+  --bg: #12151a;
+  --bg-panel: #1b1f26;
+  --text: #ece8e1;
+  --text-muted: #8b93a1;
+  --rule: #2a2f38;
+  --accent: #f0b429;
+  --accent-edit: #c2534a;
+
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --measure: 680px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1.1em;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.wrap {
+  max-width: calc(var(--measure) + 48px);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.doc-section {
+  padding: 80px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.doc-section:first-of-type {
+  border-top: none;
+  padding-top: 64px;
+}
+
+.doc-section h2 {
+  font-size: 1.0625rem;
+  margin-bottom: 28px;
+}
+
+.content > :first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 760px) {
+  .doc-section {
+    padding: 52px 0;
+  }
+}
+
+/* Section nav */
+.toc {
+  position: fixed;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.toc a {
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.toc a.active {
+  color: var(--accent);
+}
+
+@media (max-width: 1300px) {
+  .toc {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

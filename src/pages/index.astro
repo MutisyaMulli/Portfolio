@@ -1,0 +1,691 @@
+---
+import "../styles/global.css";
+import Section from "../components/Section.astro";
+import DiffPanels from "../components/DiffPanels.astro";
+import SourcingDiagram from "../components/SourcingDiagram.astro";
+import DefenseLayers from "../components/DefenseLayers.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+const navItems = [
+  { id: "overview", label: "Overview" },
+  { id: "principles", label: "Principles" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "samples", label: "Samples" },
+  { id: "capabilities", label: "Capabilities" },
+  { id: "track-record", label: "Track record" },
+  { id: "education", label: "Education" },
+  { id: "contact", label: "Contact" },
+];
+
+const samples = [
+  {
+    company: "Chameleon Software — Case Manager",
+    url: "https://learning.casemanager.biz/",
+    caption:
+      "The Case Manager Learning Site: version release notes, video walkthroughs, and structured help articles with breadcrumbs, cross-references, and inline screenshots.",
+    images: [
+      { src: "images/casemanager-home.png", alt: "Case Manager Learning Site homepage, showing release history and getting-started links" },
+      { src: "images/casemanager-docs.png", alt: "A Case Manager help article on security groups and permissions, with sidebar navigation and an embedded walkthrough video" },
+    ],
+  },
+];
+
+const diffExamples = [
+  {
+    before:
+      "retry logic kicks in after token expiry, 3x, then just fails silently. logs have the detail if anyone wants to dig in",
+    after:
+      "If your session expires, the system retries the request up to three times, then shows an error explaining how to sign in again.",
+  },
+  {
+    before:
+      "job doesnt complete if operator skips step 4, no error just hangs on the UI, happened 3x this week per support",
+    after:
+      "Steps must be completed in order. Skipping step 4 stops the job without an error message. Contact support if a job stops responding.",
+  },
+  {
+    before:
+      "dont let them submit without the consent checkbox ticked, legal needs it logged w/ timestamp, ping compliance if unsure",
+    after:
+      "The form can't be submitted until the consent checkbox is selected. Submissions are logged with a timestamp to meet compliance requirements.",
+  },
+];
+
+const experience = [
+  {
+    company: "Advantive",
+    role: "Technical Writing Lead",
+    date: "Feb 2023 — Present",
+    bullets: [
+      "Lead documentation for ERP and manufacturing execution platforms, embedded end-to-end into the SDLC",
+      "Design structured authoring workflows in MadCap Flare: metadata management, conditional-text patterns, single-sourcing across multiple output targets",
+      "Partner with Product, Engineering, QA, and Support to align docs with product decisions and customer needs",
+      "Integrate AI-assisted workflows into documentation review and indexing while maintaining editorial quality",
+    ],
+  },
+  {
+    company: "Mondial Software, Inc.",
+    role: "Technical Writer / Quality Assurance",
+    date: "Feb 2021 — Oct 2022",
+    bullets: [
+      "Built usability-driven help centers and structured content systems for enterprise software",
+      "Supported QA through feature testing and validation alongside documentation work",
+      "Applied information architecture, UX/UI writing, and API documentation to improve clarity and accuracy",
+    ],
+  },
+  {
+    company: "Chameleon Software Australia",
+    role: "Contract Technical Writer",
+    date: null,
+    bullets: [
+      "Documented medical software for clinical workflows, prioritizing compliance, precision, and usability for healthcare professionals",
+      "Produced API documentation and UX/UI content for clinical use cases",
+      "Applied structured authoring and single-sourcing to maintain consistency across a regulated environment",
+    ],
+  },
+  {
+    company: "AFS Software (United States)",
+    role: "Contract Technical Writer",
+    date: null,
+    bullets: [
+      "Documented medical ERP and SaaS platforms to meet healthcare compliance and clarity standards",
+      "Designed content systems that improved discoverability and reduced maintenance overhead",
+    ],
+  },
+];
+
+const capabilities = [
+  {
+    heading: "What I document",
+    items: [
+      "User guides & help centers",
+      "API documentation",
+      "Release notes",
+      "Technical specifications",
+      "Software architecture documentation",
+      "UX/UI writing",
+      "Standard operating procedures",
+    ],
+  },
+  {
+    heading: "How I work",
+    items: [
+      "Structured authoring & single-sourcing",
+      "Metadata & conditional-text patterns",
+      "Information architecture",
+      "SDLC integration",
+      "Agile & Scrum",
+      "CI/CD documentation",
+    ],
+  },
+  {
+    heading: "Infrastructure & automation",
+    items: [
+      "Documentation publishing pipelines",
+      "Git automation tooling",
+      "Rebranding & style-system migrations",
+      "Release notes cleanup at scale",
+      "AI-assisted review, indexing & config generation",
+    ],
+  },
+  {
+    heading: "Tools",
+    items: [
+      "MadCap Flare",
+      "MkDocs Material",
+      "Confluence",
+      "GitBook",
+      "Swagger",
+      "Git & GitHub",
+      "GitHub Actions",
+      "Azure DevOps",
+      "Markdown",
+      "PowerShell",
+      "Zendesk",
+      "Salesforce",
+      "SharePoint",
+    ],
+  },
+];
+
+const principles = [
+  {
+    term: "Learn fast",
+    body: "ERP, manufacturing execution, healthcare compliance, SaaS — four domains in six years. I'd rather learn the product than wait for someone to hand me a finished spec.",
+  },
+  {
+    term: "Automate the boring parts",
+    body: "If I'm fixing the same thing twice, I write a script instead. That's where the git automation tooling came from, the Flare-to-MkDocs migration, and an asset tracker that started as a spreadsheet and ended up a browser app.",
+  },
+  {
+    term: "Check it against the real thing",
+    body: "Software QA background. I test the feature before I document it, because the spec and the shipped product don't always agree.",
+  },
+  {
+    term: "Sit with the team that builds it",
+    body: "At Advantive, documentation isn't a handoff at the end of the process. I'm in the same sprint as Product, Engineering, QA, and Support.",
+  },
+];
+
+const projects = [
+  {
+    heading: "ADO HTML Commit Previewer",
+    paragraphs: [
+      "Azure DevOps' built-in preview for HTML files changed in a commit or PR has no CSS and never resolves repo-relative image paths, so reviewing exported documentation before merge was effectively impossible. I built a browser extension that detects commit and PR pages, lists every changed HTML file, and renders each one with real images and consistent styling.",
+      "The harder problem was authentication without a token: the extension proxies API calls through a content script running in the user's own Azure DevOps tab, so requests carry real session cookies, sidestepping the SameSite restrictions that block a direct cross-origin fetch from the extension's service worker.",
+      "Every previewed page is attacker-controlled input — a committed file, not trusted content — so rendering goes through layered defenses: script and style stripping, a strict injected CSP, external-resource blocking so a file can't beacon out to detect it was previewed, and a sandboxed iframe with no script execution as the final backstop against any sanitizer gap, including a known mutation-XSS risk from re-serializing parsed HTML.",
+      "One manifest.json runs on Chrome, Edge, and Firefox, handling the real differences between Chrome's service-worker background model and Firefox's background-scripts model, verified against Mozilla's own web-ext linter. 45 unit tests, using Node's built-in test runner and jsdom, cover the security-critical sanitization logic directly.",
+    ],
+    defenseDiagram: true,
+  },
+  {
+    heading: "Flare → docs-as-code migration",
+    paragraphs: [
+      "At Advantive, I'm leading a migration of a legacy MadCap Flare help system — 591 topics across five output targets, including HTML5 WebHelp and a Word-format client deliverable — to a docs-as-code setup built on MkDocs Material with GitHub Actions for CI/CD.",
+      "I evaluated MkDocs Material against Docusaurus and picked it because it keeps the authoring experience simple for a mixed team of technical and non-technical writers: plain Markdown and YAML config, no React or Node.js to maintain.",
+      "The Word output was the hard part. Docs-as-code tools don't export to Word natively, so I built a small Pandoc-based pipeline to cover it. Estimated at 6–10 weeks focused, or 3–4 months alongside regular release work.",
+    ],
+    sourcingDiagram: true,
+  },
+  {
+    heading: "Asset intake & tracking system",
+    paragraphs: [
+      "Built an asset tracking system for equipment checkout, maintenance, and consumables, running entirely in the browser: Google Forms for intake, Apps Script for the backend, a custom web app for checkout/return and maintenance.",
+      "Google Sheets is the system of record — FILTER, INDEX/MATCH, SUMPRODUCT instead of a separate database — with Drive storing per-asset photo folders and an optional Looker Studio dashboard for admins.",
+      "The web app pages are plain HTML, CSS, and JavaScript, calling the backend through google.script.run, hosted on a Google Sites page with access limited to specific users and groups. No code editor, no separate hosting — which is most of why a small team can keep it running.",
+    ],
+  },
+];
+
+const trackRecord = [
+  ["Job success", "100%"],
+  ["Rating", "5.0 (10 reviews)"],
+  ["Status", "Top Rated Plus"],
+  ["Projects completed", "15"],
+  ["Hours logged", "7,600+"],
+];
+
+const credentials = [
+  "Kisii University — Bachelor of Arts",
+  "Software Engineering — Moringa School (2025)",
+  "Foundations of Cybersecurity — Google (2025)",
+  "Play It Safe: Manage Security Risks — Google (2025)",
+  "Corporate Finance Institute — 7 courses in financial analysis & accounting (2022)",
+  "Fundamentals of Digital Marketing — Google (2021)",
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Anthony Mutisya — Documentation Engineer. Documentation and documentation systems for ERP, manufacturing execution, and SaaS platforms."
+    />
+    <title>Anthony Mutisya — Documentation Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="toc" aria-label="Section navigation">
+      {navItems.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
+    </nav>
+
+    <main class="wrap">
+      <section class="doc-section hero">
+        <div class="content">
+          <h1>Anthony Mutisya</h1>
+          <p class="role">Documentation Engineer</p>
+          <p class="role-sub">Technical Writing Lead at Advantive</p>
+          <p class="tagline">
+            Most engineering notes aren't wrong, just unreadable by the
+            people who need them. I turn them into documentation that is.
+          </p>
+          <DiffPanels examples={diffExamples} />
+          <p class="hero-links">
+            <a href="#contact">Get in touch</a> <a href="#experience">See my experience</a>
+          </p>
+        </div>
+      </section>
+
+      <Section id="overview">
+        <h2>Overview</h2>
+        <p>
+          Six years, four industries: ERP, manufacturing execution,
+          enterprise sales, and medical software. The product changes every
+          time. What doesn't change is the gap between what engineering
+          built and what a user needs to understand to use it.
+        </p>
+        <p>
+          Closing that gap is the job. Sometimes it's a forty-page user
+          guide. Sometimes it's one error message. Lately it's meant
+          rebuilding the systems that produce the documentation in the first
+          place — structured authoring in MadCap Flare, metadata and
+          conditional-text patterns, single-sourcing so one source feeds
+          every output instead of five people editing five copies.
+        </p>
+        <p>
+          I also have a QA background, which matters more than it sounds
+          like it should. Bad documentation usually isn't badly written —
+          it's just wrong, because nobody checked it against what the
+          product actually does. I check.
+        </p>
+      </Section>
+
+      <Section id="principles">
+        <h2>Principles</h2>
+        <ul class="principle-list">
+          {
+            principles.map((p) => (
+              <li class="principle">
+                <h3>{p.term}</h3>
+                <p>{p.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+
+      <Section id="experience">
+        <h2>Experience</h2>
+        <ul class="experience-list">
+          {
+            experience.map((job) => (
+              <li class="job">
+                <div class="job-head">
+                  <h3>{job.company}</h3>
+                  {job.date && <span class="job-date">{job.date}</span>}
+                </div>
+                <p class="job-role">{job.role}</p>
+                <ul class="job-bullets">
+                  {job.bullets.map((point) => <li>{point}</li>)}
+                </ul>
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+
+      <Section id="projects">
+        <h2>Projects</h2>
+        <ul class="project-list">
+          {
+            projects.map((project) => (
+              <li class="project">
+                <h3>{project.heading}</h3>
+                {project.paragraphs.map((para) => <p>{para}</p>)}
+                {project.sourcingDiagram && <SourcingDiagram />}
+                {project.defenseDiagram && <DefenseLayers />}
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+
+      <Section id="samples">
+        <h2>Documentation samples</h2>
+        <ul class="sample-list">
+          {
+            samples.map((sample) => (
+              <li class="sample">
+                <h3>{sample.company}</h3>
+                <div class="sample-images">
+                  {sample.images.map((img) => (
+                    <img src={`${base}${img.src}`} alt={img.alt} loading="lazy" />
+                  ))}
+                </div>
+                <p>{sample.caption}</p>
+                <a href={sample.url} target="_blank" rel="noopener noreferrer" class="sample-link">
+                  {sample.url.replace("https://", "")}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+
+      <Section id="capabilities">
+        <h2>Capabilities</h2>
+        <div class="capability-groups">
+          {
+            capabilities.map((group) => (
+              <div class="capability-group">
+                <h3>{group.heading}</h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </Section>
+
+      <Section id="track-record">
+        <h2>Track record</h2>
+        <p>
+          Alongside full-time and contract roles, I've completed 15 projects
+          as a freelance technical writer on Upwork:
+        </p>
+        <dl class="stats">
+          {
+            trackRecord.map(([label, value]) => (
+              <div class="stat">
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </Section>
+
+      <Section id="education">
+        <h2>Education &amp; credentials</h2>
+        <ul class="cert-list">
+          {credentials.map((item) => <li>{item}</li>)}
+        </ul>
+      </Section>
+
+      <Section id="contact">
+        <h2>Get in touch</h2>
+        <p>
+          Open to new freelance projects and full-time roles — reach out.
+        </p>
+        <ul class="contact-list">
+          <li>
+            <a href="mailto:mutisyamullie@gmail.com">mutisyamullie@gmail.com</a>
+          </li>
+          <li>
+            <a href="tel:+254790266965">+254 790 266 965</a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/anthony-mutisya-mulli"
+              target="_blank"
+              rel="noopener noreferrer">LinkedIn</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.upwork.com/freelancers/~0154c0ae43f5bb0310"
+              target="_blank"
+              rel="noopener noreferrer">Upwork</a
+            >
+          </li>
+          <li class="muted">Nairobi, Kenya</li>
+        </ul>
+      </Section>
+    </main>
+
+    <style>
+      .hero .role {
+        font-family: var(--font-mono);
+        color: var(--accent);
+        font-size: 1rem;
+        margin: 10px 0 0;
+      }
+
+      .hero .role-sub {
+        font-family: var(--font-mono);
+        color: var(--text-muted);
+        font-size: 0.8125rem;
+        margin: 4px 0 0;
+      }
+
+      .hero .tagline {
+        font-size: 1.1875rem;
+        max-width: 38ch;
+        margin: 22px 0 0;
+      }
+
+      .hero-links {
+        margin-top: 36px;
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        display: flex;
+        gap: 20px;
+      }
+
+      .principle-list {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .principle h3 {
+        font-size: 0.9375rem;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+
+      .experience-list {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .job-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .job-date {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      .job-role {
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        margin: 4px 0 12px;
+      }
+
+      .job-bullets {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .job-bullets li {
+        font-size: 0.9375rem;
+        padding-left: 18px;
+        position: relative;
+      }
+
+      .job-bullets li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.65em;
+        width: 6px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      .project-list {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .project h3 {
+        font-size: 1.0625rem;
+        margin-bottom: 14px;
+      }
+
+      .project p {
+        margin-bottom: 1em;
+      }
+
+      .sample-list {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .sample h3 {
+        font-size: 1.0625rem;
+        margin-bottom: 14px;
+      }
+
+      .sample-images {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .sample-images img {
+        width: 100%;
+        display: block;
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+      }
+
+      .sample p {
+        margin-top: 16px;
+        color: var(--text-muted);
+        font-size: 0.9375rem;
+      }
+
+      .sample-link {
+        display: inline-block;
+        margin-top: 8px;
+        font-family: var(--font-mono);
+        font-size: 0.8125rem;
+      }
+
+      @media (max-width: 600px) {
+        .sample-images {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .capability-groups {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 48px;
+      }
+
+      .capability-group h3 {
+        font-size: 0.8125rem;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+      }
+
+      .capability-group li {
+        padding: 6px 0;
+        border-top: 1px solid var(--rule);
+        font-size: 0.9375rem;
+      }
+
+      .capability-group li:first-child {
+        border-top: none;
+      }
+
+      .stats {
+        margin: 28px 0 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 32px;
+      }
+
+      .stat {
+        border-top: 1px solid var(--rule);
+        padding-top: 10px;
+      }
+
+      .stat dt {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .stat dd {
+        margin: 4px 0 0;
+        font-size: 1.125rem;
+      }
+
+      .cert-list {
+        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .cert-list li {
+        font-size: 0.9375rem;
+        padding-left: 18px;
+        position: relative;
+      }
+
+      .cert-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.65em;
+        width: 6px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      .contact-list {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 0.9375rem;
+      }
+
+      .contact-list .muted {
+        color: var(--text-muted);
+      }
+
+      @media (max-width: 760px) {
+        .capability-groups,
+        .stats {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+    </style>
+
+    <script>
+      const links = document.querySelectorAll<HTMLAnchorElement>(".toc a");
+      const map = new Map<string, HTMLAnchorElement>();
+      links.forEach((a) => map.set(a.getAttribute("href")!.slice(1), a));
+
+      const sections = document.querySelectorAll<HTMLElement>(".doc-section[id]");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const link = map.get(entry.target.id);
+            if (!link || !entry.isIntersecting) return;
+            links.forEach((a) => a.classList.remove("active"));
+            link.classList.add("active");
+          });
+        },
+        { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>

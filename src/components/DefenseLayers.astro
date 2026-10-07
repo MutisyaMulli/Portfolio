@@ -1,0 +1,85 @@
+---
+const layers = [
+  "Strip scripts & styles",
+  "Inject strict CSP",
+  "Block external resources",
+  "Sandboxed iframe, no script execution",
+];
+---
+
+<svg
+  class="defense-diagram"
+  viewBox="0 0 400 300"
+  role="img"
+  aria-label="Diagram: a committed HTML file passes through four layered defenses — stripping scripts and styles, injecting a strict content security policy, blocking external resources, and a sandboxed iframe with no script execution — before being rendered safely"
+>
+  <rect x="80" y="0" width="240" height="32" rx="3" class="box box--io" />
+  <text x="200" y="20" text-anchor="middle" class="io-text">Committed HTML (untrusted)</text>
+
+  {
+    layers.map((label, i) => {
+      const y = 56 + i * 48;
+      return (
+        <>
+          <line x1="200" y1={y - 20} x2="200" y2={y} class="link" />
+          <rect x="40" y={y} width="320" height="32" rx="3" class="box box--layer" />
+          <text x="200" y={y + 20} text-anchor="middle" class="layer-text">
+            {label}
+          </text>
+        </>
+      );
+    })
+  }
+
+  <line x1="200" y1="248" x2="200" y2="268" class="link" />
+  <rect x="80" y="268" width="240" height="32" rx="3" class="box box--io box--out" />
+  <text x="200" y="288" text-anchor="middle" class="io-text io-text--out">Rendered safely in preview</text>
+</svg>
+
+<style>
+  .defense-diagram {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    margin-top: 8px;
+  }
+
+  .box {
+    fill: var(--bg-panel);
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+
+  .box--io {
+    stroke: var(--accent-edit);
+  }
+
+  .box--out {
+    stroke: var(--accent);
+  }
+
+  .box--layer {
+    stroke: var(--rule);
+  }
+
+  .io-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--accent-edit);
+  }
+
+  .io-text--out {
+    fill: var(--accent);
+  }
+
+  .layer-text {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    fill: var(--text-muted);
+  }
+
+  .link {
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+</style>
