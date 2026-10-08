@@ -178,6 +178,7 @@ const principles = [
 const projects = [
   {
     heading: "ADO HTML Commit Previewer",
+    tags: ["Browser extension", "Security", "Chrome · Firefox · Edge"],
     summary:
       "A browser extension that fixes Azure DevOps' broken HTML preview for commits and PRs — real CSS, real images, and layered defenses against the fact that every previewed file is untrusted input.",
     paragraphs: [
@@ -190,6 +191,7 @@ const projects = [
   },
   {
     heading: "Flare → docs-as-code migration",
+    tags: ["Information architecture", "MkDocs Material", "CI/CD"],
     summary:
       "Leading a migration of a 591-topic MadCap Flare help system to a docs-as-code setup on MkDocs Material, across five output targets including a Word deliverable.",
     paragraphs: [
@@ -201,6 +203,7 @@ const projects = [
   },
   {
     heading: "Asset intake & tracking system",
+    tags: ["Google Apps Script", "Google Sheets", "No-code"],
     summary:
       "A browser-based asset tracking system for equipment checkout and maintenance, built entirely on Google Workspace — no separate backend or hosting.",
     paragraphs: [
@@ -219,13 +222,20 @@ const trackRecord = [
   ["Hours logged", "7,600+"],
 ];
 
-const credentials = [
-  "Kisii University — Bachelor of Arts",
-  "Software Engineering — Moringa School (2025)",
-  "Foundations of Cybersecurity — Google (2025)",
-  "Play It Safe: Manage Security Risks — Google (2025)",
-  "Corporate Finance Institute — 7 courses in financial analysis & accounting (2022)",
-  "Fundamentals of Digital Marketing — Google (2021)",
+const education = [
+  { title: "Bachelor of Arts", source: "Kisii University", year: null },
+  { title: "Software Engineering", source: "Moringa School", year: "2025" },
+];
+
+const certifications = [
+  { title: "Foundations of Cybersecurity", source: "Google", year: "2025" },
+  { title: "Play It Safe: Manage Security Risks", source: "Google", year: "2025" },
+  {
+    title: "Financial Analysis & Accounting (7 courses)",
+    source: "Corporate Finance Institute",
+    year: "2022",
+  },
+  { title: "Fundamentals of Digital Marketing", source: "Google", year: "2021" },
 ];
 ---
 
@@ -335,6 +345,11 @@ const credentials = [
             projects.map((project) => (
               <li class="project">
                 <h3>{project.heading}</h3>
+                <ul class="chip-list">
+                  {project.tags.map((tag) => (
+                    <li class="chip">{tag}</li>
+                  ))}
+                </ul>
                 <p>{project.summary}</p>
                 <details class="disclosure">
                   <summary>Read more</summary>
@@ -417,10 +432,41 @@ const credentials = [
       </Section>
 
       <Section id="education">
-        <h2>Education &amp; credentials</h2>
-        <ul class="cert-list">
-          {credentials.map((item) => <li>{item}</li>)}
-        </ul>
+        <h2>Education &amp; certifications</h2>
+        <div class="credential-groups">
+          <div class="credential-group">
+            <h3>Education</h3>
+            <ul class="credential-list">
+              {
+                education.map((item) => (
+                  <li class="credential-chip">
+                    <span class="credential-title">{item.title}</span>
+                    <span class="credential-meta">
+                      {item.source}
+                      {item.year && ` · ${item.year}`}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="credential-group">
+            <h3>Certifications</h3>
+            <ul class="credential-list">
+              {
+                certifications.map((item) => (
+                  <li class="credential-chip">
+                    <span class="credential-title">{item.title}</span>
+                    <span class="credential-meta">
+                      {item.source}
+                      {item.year && ` · ${item.year}`}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
       </Section>
 
       <Section id="contact">
@@ -605,7 +651,14 @@ const credentials = [
       .project-list {
         display: flex;
         flex-direction: column;
-        gap: 48px;
+        gap: 24px;
+      }
+
+      .project {
+        background: var(--bg-panel);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 28px;
       }
 
       .project h3 {
@@ -615,6 +668,29 @@ const credentials = [
 
       .project p {
         margin-bottom: 1em;
+      }
+
+      .chip-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .chip {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 4px 12px;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 600px) {
+        .project {
+          padding: 20px;
+        }
       }
 
       .sample-list {
@@ -705,27 +781,51 @@ const credentials = [
         font-size: 1.125rem;
       }
 
-      .cert-list {
+      .credential-groups {
         margin-top: 4px;
         display: flex;
         flex-direction: column;
+        gap: 28px;
+      }
+
+      .credential-group h3 {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+      }
+
+      .credential-list {
+        display: flex;
+        flex-wrap: wrap;
         gap: 10px;
       }
 
-      .cert-list li {
-        font-size: 0.9375rem;
-        padding-left: 18px;
-        position: relative;
+      .credential-chip {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 10px 14px;
+        background: var(--bg-panel);
+        transition: border-color 0.15s ease;
       }
 
-      .cert-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.65em;
-        width: 6px;
-        height: 1px;
-        background: var(--accent);
+      .credential-chip:hover {
+        border-color: var(--accent);
+      }
+
+      .credential-title {
+        font-size: 0.875rem;
+      }
+
+      .credential-meta {
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        color: var(--text-muted);
       }
 
       .contact-list {
