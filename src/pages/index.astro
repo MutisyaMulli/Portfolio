@@ -58,8 +58,9 @@ const experience = [
     company: "Advantive",
     role: "Technical Writing Lead",
     date: "Feb 2023 — Present",
+    summary:
+      "Leading documentation for ERP and manufacturing execution platforms, embedded into the SDLC.",
     bullets: [
-      "Lead documentation for ERP and manufacturing execution platforms, embedded end-to-end into the SDLC",
       "Design structured authoring workflows in MadCap Flare: metadata management, conditional-text patterns, single-sourcing across multiple output targets",
       "Partner with Product, Engineering, QA, and Support to align docs with product decisions and customer needs",
       "Integrate AI-assisted workflows into documentation review and indexing while maintaining editorial quality",
@@ -69,8 +70,9 @@ const experience = [
     company: "Mondial Software, Inc.",
     role: "Technical Writer / Quality Assurance",
     date: "Feb 2021 — Oct 2022",
+    summary:
+      "Built usability-driven help centers and structured content systems for enterprise software.",
     bullets: [
-      "Built usability-driven help centers and structured content systems for enterprise software",
       "Supported QA through feature testing and validation alongside documentation work",
       "Applied information architecture, UX/UI writing, and API documentation to improve clarity and accuracy",
     ],
@@ -79,8 +81,9 @@ const experience = [
     company: "Chameleon Software Australia",
     role: "Contract Technical Writer",
     date: null,
+    summary:
+      "Documented medical software for clinical workflows — compliance, precision, and usability for healthcare professionals.",
     bullets: [
-      "Documented medical software for clinical workflows, prioritizing compliance, precision, and usability for healthcare professionals",
       "Produced API documentation and UX/UI content for clinical use cases",
       "Applied structured authoring and single-sourcing to maintain consistency across a regulated environment",
     ],
@@ -89,8 +92,9 @@ const experience = [
     company: "AFS Software (United States)",
     role: "Contract Technical Writer",
     date: null,
+    summary:
+      "Documented medical ERP and SaaS platforms to meet healthcare compliance and clarity standards.",
     bullets: [
-      "Documented medical ERP and SaaS platforms to meet healthcare compliance and clarity standards",
       "Designed content systems that improved discoverability and reduced maintenance overhead",
     ],
   },
@@ -136,10 +140,12 @@ const capabilities = [
       "MadCap Flare",
       "MkDocs Material",
       "Confluence",
-      "GitBook",
-      "Swagger",
       "Git & GitHub",
       "GitHub Actions",
+      "Swagger",
+    ],
+    moreItems: [
+      "GitBook",
       "Azure DevOps",
       "Markdown",
       "PowerShell",
@@ -172,16 +178,20 @@ const principles = [
 const projects = [
   {
     heading: "ADO HTML Commit Previewer",
+    summary:
+      "A browser extension that fixes Azure DevOps' broken HTML preview for commits and PRs — real CSS, real images, and layered defenses against the fact that every previewed file is untrusted input.",
     paragraphs: [
-      "Azure DevOps' built-in preview for HTML files changed in a commit or PR has no CSS and never resolves repo-relative image paths, so reviewing exported documentation before merge was effectively impossible. I built a browser extension that detects commit and PR pages, lists every changed HTML file, and renders each one with real images and consistent styling.",
+      "Azure DevOps' built-in preview for HTML files changed in a commit or PR has no CSS and never resolves repo-relative image paths, so reviewing exported documentation before merge was effectively impossible. I built an extension that detects commit and PR pages, lists every changed HTML file, and renders each one with real images and consistent styling.",
       "The harder problem was authentication without a token: the extension proxies API calls through a content script running in the user's own Azure DevOps tab, so requests carry real session cookies, sidestepping the SameSite restrictions that block a direct cross-origin fetch from the extension's service worker.",
-      "Every previewed page is attacker-controlled input — a committed file, not trusted content — so rendering goes through layered defenses: script and style stripping, a strict injected CSP, external-resource blocking so a file can't beacon out to detect it was previewed, and a sandboxed iframe with no script execution as the final backstop against any sanitizer gap, including a known mutation-XSS risk from re-serializing parsed HTML.",
+      "Every previewed page is attacker-controlled input, so rendering goes through layered defenses: script and style stripping, a strict injected CSP, external-resource blocking so a file can't beacon out to detect it was previewed, and a sandboxed iframe with no script execution as the final backstop against any sanitizer gap, including a known mutation-XSS risk from re-serializing parsed HTML.",
       "One manifest.json runs on Chrome, Edge, and Firefox, handling the real differences between Chrome's service-worker background model and Firefox's background-scripts model, verified against Mozilla's own web-ext linter. 45 unit tests, using Node's built-in test runner and jsdom, cover the security-critical sanitization logic directly.",
     ],
     defenseDiagram: true,
   },
   {
     heading: "Flare → docs-as-code migration",
+    summary:
+      "Leading a migration of a 591-topic MadCap Flare help system to a docs-as-code setup on MkDocs Material, across five output targets including a Word deliverable.",
     paragraphs: [
       "At Advantive, I'm leading a migration of a legacy MadCap Flare help system — 591 topics across five output targets, including HTML5 WebHelp and a Word-format client deliverable — to a docs-as-code setup built on MkDocs Material with GitHub Actions for CI/CD.",
       "I evaluated MkDocs Material against Docusaurus and picked it because it keeps the authoring experience simple for a mixed team of technical and non-technical writers: plain Markdown and YAML config, no React or Node.js to maintain.",
@@ -191,6 +201,8 @@ const projects = [
   },
   {
     heading: "Asset intake & tracking system",
+    summary:
+      "A browser-based asset tracking system for equipment checkout and maintenance, built entirely on Google Workspace — no separate backend or hosting.",
     paragraphs: [
       "Built an asset tracking system for equipment checkout, maintenance, and consumables, running entirely in the browser: Google Forms for intake, Apps Script for the backend, a custom web app for checkout/return and maintenance.",
       "Google Sheets is the system of record — FILTER, INDEX/MATCH, SUMPRODUCT instead of a separate database — with Drive storing per-asset photo folders and an optional Looker Studio dashboard for admins.",
@@ -265,22 +277,16 @@ const credentials = [
         <p>
           Six years, four industries: ERP, manufacturing execution,
           enterprise sales, and medical software. The product changes every
-          time. What doesn't change is the gap between what engineering
-          built and what a user needs to understand to use it.
-        </p>
-        <p>
-          Closing that gap is the job. Sometimes it's a forty-page user
-          guide. Sometimes it's one error message. Lately it's meant
+          time — what doesn't is the gap between what engineering built and
+          what a user needs to understand to use it. Closing that gap is the
+          job, whether it's a forty-page user guide, one error message, or
           rebuilding the systems that produce the documentation in the first
-          place — structured authoring in MadCap Flare, metadata and
-          conditional-text patterns, single-sourcing so one source feeds
-          every output instead of five people editing five copies.
+          place.
         </p>
         <p>
-          I also have a QA background, which matters more than it sounds
-          like it should. Bad documentation usually isn't badly written —
-          it's just wrong, because nobody checked it against what the
-          product actually does. I check.
+          I also have a QA background. Bad documentation usually isn't badly
+          written — it's just wrong, because nobody checked it against what
+          the product actually does. I check.
         </p>
       </Section>
 
@@ -302,16 +308,20 @@ const credentials = [
         <h2>Experience</h2>
         <ul class="experience-list">
           {
-            experience.map((job) => (
+            experience.map((job, i) => (
               <li class="job">
                 <div class="job-head">
                   <h3>{job.company}</h3>
                   {job.date && <span class="job-date">{job.date}</span>}
                 </div>
                 <p class="job-role">{job.role}</p>
-                <ul class="job-bullets">
-                  {job.bullets.map((point) => <li>{point}</li>)}
-                </ul>
+                <p class="job-summary">{job.summary}</p>
+                <details class="disclosure" open={i === 0}>
+                  <summary>Details</summary>
+                  <ul class="job-bullets">
+                    {job.bullets.map((point) => <li>{point}</li>)}
+                  </ul>
+                </details>
               </li>
             ))
           }
@@ -325,9 +335,13 @@ const credentials = [
             projects.map((project) => (
               <li class="project">
                 <h3>{project.heading}</h3>
-                {project.paragraphs.map((para) => <p>{para}</p>)}
-                {project.sourcingDiagram && <SourcingDiagram />}
-                {project.defenseDiagram && <DefenseLayers />}
+                <p>{project.summary}</p>
+                <details class="disclosure">
+                  <summary>Read more</summary>
+                  {project.paragraphs.map((para) => <p>{para}</p>)}
+                  {project.sourcingDiagram && <SourcingDiagram />}
+                  {project.defenseDiagram && <DefenseLayers />}
+                </details>
               </li>
             ))
           }
@@ -368,6 +382,16 @@ const credentials = [
                     <li>{item}</li>
                   ))}
                 </ul>
+                {group.moreItems && (
+                  <details class="disclosure">
+                    <summary>Show {group.moreItems.length} more</summary>
+                    <ul>
+                      {group.moreItems.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </div>
             ))
           }
@@ -509,6 +533,51 @@ const credentials = [
         font-family: var(--font-mono);
         font-size: 0.875rem;
         margin: 4px 0 12px;
+      }
+
+      .job-summary {
+        color: var(--text-muted);
+        margin-bottom: 0;
+      }
+
+      .disclosure {
+        margin-top: 14px;
+      }
+
+      .disclosure summary {
+        cursor: pointer;
+        list-style: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent-2);
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .disclosure summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .disclosure summary::before {
+        content: "+";
+        display: inline-block;
+        width: 1em;
+        text-align: center;
+      }
+
+      .disclosure[open] summary::before {
+        content: "−";
+      }
+
+      .disclosure summary:hover {
+        color: var(--accent);
+      }
+
+      .disclosure[open] summary {
+        margin-bottom: 12px;
       }
 
       .job-bullets {
