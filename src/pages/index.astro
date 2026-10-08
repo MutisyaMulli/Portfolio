@@ -146,20 +146,16 @@ const capabilities = [
 
 const principles = [
   {
-    term: "Learn fast",
-    body: "ERP, manufacturing execution, healthcare compliance, SaaS — four domains in six years. I'd rather learn the product than wait for someone to hand me a finished spec.",
-  },
-  {
     term: "Automate the boring parts",
-    body: "If I'm fixing the same thing twice, I write a script instead. That's where the git automation tooling came from, the Flare-to-MkDocs migration, and an asset tracker that started as a spreadsheet and ended up a browser app.",
+    body: "If I'm fixing the same problem twice, I write a script instead of doing it by hand a third time.",
   },
   {
-    term: "Check it against the real thing",
-    body: "Software QA background. I test the feature before I document it, because the spec and the shipped product don't always agree.",
+    term: "Boring tools win",
+    body: "Given the choice, I pick the tool a five-person team can actually maintain over the one with the longer feature list. Plain Markdown and YAML beat a React-based docs stack when most of the team isn't writing code.",
   },
   {
-    term: "Sit with the team that builds it",
-    body: "At Advantive, documentation isn't a handoff at the end of the process. I'm in the same sprint as Product, Engineering, QA, and Support.",
+    term: "Precision over polish",
+    body: "In regulated software — clinical workflows, financial platforms — a confusing sentence is a compliance problem, not a style nitpick. I'd rather ship something plain and exact than something polished and ambiguous.",
   },
 ];
 
@@ -292,8 +288,9 @@ const certifications = [
         <h2>Principles</h2>
         <ul class="principle-list">
           {
-            principles.map((p) => (
+            principles.map((p, i) => (
               <li class="principle">
+                <span class="principle-index">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{p.term}</h3>
                 <p>{p.body}</p>
               </li>
@@ -532,12 +529,26 @@ const certifications = [
       .principle-list {
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 16px;
+      }
+
+      .principle {
+        background: var(--bg-panel);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 24px;
+      }
+
+      .principle-index {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent-2);
+        margin-bottom: 10px;
       }
 
       .principle h3 {
         font-size: 0.9375rem;
-        color: var(--accent);
         margin-bottom: 8px;
       }
 
