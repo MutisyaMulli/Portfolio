@@ -81,9 +81,16 @@ ul {
   color: var(--bg);
 }
 
+.page {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
 .wrap {
   max-width: calc(var(--measure) + 48px);
-  margin: 0 auto;
   padding: 0 24px;
 }
 
@@ -135,10 +142,12 @@ ul {
 
 /* Section nav */
 .toc {
-  position: fixed;
-  right: calc(50% + (var(--measure) + 48px) / 2 + 56px);
-  top: 50%;
+  position: sticky;
+  top: 50vh;
   transform: translateY(-50%);
+  flex: 0 0 auto;
+  align-self: flex-start;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 10px;

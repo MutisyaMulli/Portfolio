@@ -245,11 +245,12 @@ const certifications = [
   <body>
     <div class="progress-bar" id="progress-bar"></div>
 
-    <nav class="toc" aria-label="Section navigation">
-      {navItems.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
-    </nav>
+    <div class="page">
+      <nav class="toc" aria-label="Section navigation">
+        {navItems.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
+      </nav>
 
-    <main class="wrap">
+      <main class="wrap">
       <section class="doc-section hero">
         <div class="content">
           <h1 class="gradient-text">Anthony Mutisya</h1>
@@ -483,7 +484,8 @@ const certifications = [
           <li class="muted">Nairobi, Kenya</li>
         </ul>
       </Section>
-    </main>
+      </main>
+    </div>
 
     <style>
       .gradient-text {
