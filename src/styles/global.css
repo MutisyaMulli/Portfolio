@@ -136,7 +136,7 @@ ul {
 /* Section nav */
 .toc {
   position: fixed;
-  left: 32px;
+  right: calc(50% + (var(--measure) + 48px) / 2 + 56px);
   top: 50%;
   transform: translateY(-50%);
   display: flex;
