@@ -58,57 +58,49 @@ const experience = [
     company: "Advantive",
     role: "Technical Writing Lead",
     date: "Feb 2023 — Present",
+    summary:
+      "Leading documentation for ERP and manufacturing execution platforms, embedded into the SDLC.",
     bullets: [
-      "Lead documentation for ERP and manufacturing execution platforms, embedded end-to-end into the SDLC",
-      "Design structured authoring workflows in MadCap Flare: metadata management, conditional-text patterns, single-sourcing across multiple output targets",
-      "Partner with Product, Engineering, QA, and Support to align docs with product decisions and customer needs",
-      "Integrate AI-assisted workflows into documentation review and indexing while maintaining editorial quality",
+      "Design structured authoring workflows in MadCap Flare — metadata, conditional text, single-sourcing across multiple outputs",
+      "Partner with Product, Engineering, QA, and Support to align docs with product decisions",
+      "Integrate AI-assisted review and indexing into the documentation workflow",
     ],
   },
   {
     company: "Mondial Software, Inc.",
     role: "Technical Writer / Quality Assurance",
     date: "Feb 2021 — Oct 2022",
+    summary:
+      "Built usability-driven help centers and structured content systems for enterprise software.",
     bullets: [
-      "Built usability-driven help centers and structured content systems for enterprise software",
-      "Supported QA through feature testing and validation alongside documentation work",
-      "Applied information architecture, UX/UI writing, and API documentation to improve clarity and accuracy",
+      "Supported QA through feature testing alongside documentation work",
+      "Applied information architecture and API documentation to improve clarity",
     ],
   },
   {
     company: "Chameleon Software Australia",
     role: "Contract Technical Writer",
     date: null,
+    summary:
+      "Documented medical software for clinical workflows, with an emphasis on compliance and precision.",
     bullets: [
-      "Documented medical software for clinical workflows, prioritizing compliance, precision, and usability for healthcare professionals",
-      "Produced API documentation and UX/UI content for clinical use cases",
-      "Applied structured authoring and single-sourcing to maintain consistency across a regulated environment",
+      "Produced API documentation and UX/UI content for clinical workflows",
+      "Applied structured authoring and single-sourcing across a regulated environment",
     ],
   },
   {
     company: "AFS Software (United States)",
     role: "Contract Technical Writer",
     date: null,
+    summary:
+      "Documented medical ERP and SaaS platforms to meet healthcare compliance and clarity standards.",
     bullets: [
-      "Documented medical ERP and SaaS platforms to meet healthcare compliance and clarity standards",
-      "Designed content systems that improved discoverability and reduced maintenance overhead",
+      "Designed content systems that cut maintenance overhead and improved discoverability",
     ],
   },
 ];
 
 const capabilities = [
-  {
-    heading: "What I document",
-    items: [
-      "User guides & help centers",
-      "API documentation",
-      "Release notes",
-      "Technical specifications",
-      "Software architecture documentation",
-      "UX/UI writing",
-      "Standard operating procedures",
-    ],
-  },
   {
     heading: "How I work",
     items: [
@@ -123,11 +115,11 @@ const capabilities = [
   {
     heading: "Infrastructure & automation",
     items: [
-      "Documentation publishing pipelines",
-      "Git automation tooling",
-      "Rebranding & style-system migrations",
-      "Release notes cleanup at scale",
-      "AI-assisted review, indexing & config generation",
+      "Automated publishing pipelines",
+      "Custom Git/CLI tooling",
+      "Style-guide & rebrand migrations",
+      "Legacy content cleanup & consolidation",
+      "AI-assisted documentation review & indexing",
     ],
   },
   {
@@ -136,10 +128,12 @@ const capabilities = [
       "MadCap Flare",
       "MkDocs Material",
       "Confluence",
-      "GitBook",
-      "Swagger",
       "Git & GitHub",
       "GitHub Actions",
+      "Swagger",
+    ],
+    moreItems: [
+      "GitBook",
       "Azure DevOps",
       "Markdown",
       "PowerShell",
@@ -152,36 +146,38 @@ const capabilities = [
 
 const principles = [
   {
-    term: "Learn fast",
-    body: "ERP, manufacturing execution, healthcare compliance, SaaS — four domains in six years. I'd rather learn the product than wait for someone to hand me a finished spec.",
-  },
-  {
     term: "Automate the boring parts",
-    body: "If I'm fixing the same thing twice, I write a script instead. That's where the git automation tooling came from, the Flare-to-MkDocs migration, and an asset tracker that started as a spreadsheet and ended up a browser app.",
+    body: "If I'm fixing the same problem twice, I write a script instead of doing it by hand a third time.",
   },
   {
-    term: "Check it against the real thing",
-    body: "Software QA background. I test the feature before I document it, because the spec and the shipped product don't always agree.",
+    term: "Boring tools win",
+    body: "Given the choice, I pick the tool a five-person team can actually maintain over the one with the longer feature list. Plain Markdown and YAML beat a React-based docs stack when most of the team isn't writing code.",
   },
   {
-    term: "Sit with the team that builds it",
-    body: "At Advantive, documentation isn't a handoff at the end of the process. I'm in the same sprint as Product, Engineering, QA, and Support.",
+    term: "Precision over polish",
+    body: "In regulated software — clinical workflows, financial platforms — a confusing sentence is a compliance problem, not a style nitpick. I'd rather ship something plain and exact than something polished and ambiguous.",
   },
 ];
 
 const projects = [
   {
     heading: "ADO HTML Commit Previewer",
+    tags: ["Browser extension", "Security", "Chrome · Firefox · Edge"],
+    summary:
+      "A browser extension that fixes Azure DevOps' broken HTML preview for commits and PRs — real CSS, real images, and layered defenses against the fact that every previewed file is untrusted input.",
     paragraphs: [
-      "Azure DevOps' built-in preview for HTML files changed in a commit or PR has no CSS and never resolves repo-relative image paths, so reviewing exported documentation before merge was effectively impossible. I built a browser extension that detects commit and PR pages, lists every changed HTML file, and renders each one with real images and consistent styling.",
+      "Azure DevOps' built-in preview for HTML files changed in a commit or PR has no CSS and never resolves repo-relative image paths, so reviewing exported documentation before merge was effectively impossible. I built an extension that detects commit and PR pages, lists every changed HTML file, and renders each one with real images and consistent styling.",
       "The harder problem was authentication without a token: the extension proxies API calls through a content script running in the user's own Azure DevOps tab, so requests carry real session cookies, sidestepping the SameSite restrictions that block a direct cross-origin fetch from the extension's service worker.",
-      "Every previewed page is attacker-controlled input — a committed file, not trusted content — so rendering goes through layered defenses: script and style stripping, a strict injected CSP, external-resource blocking so a file can't beacon out to detect it was previewed, and a sandboxed iframe with no script execution as the final backstop against any sanitizer gap, including a known mutation-XSS risk from re-serializing parsed HTML.",
+      "Every previewed page is attacker-controlled input, so rendering goes through layered defenses: script and style stripping, a strict injected CSP, external-resource blocking so a file can't beacon out to detect it was previewed, and a sandboxed iframe with no script execution as the final backstop against any sanitizer gap, including a known mutation-XSS risk from re-serializing parsed HTML.",
       "One manifest.json runs on Chrome, Edge, and Firefox, handling the real differences between Chrome's service-worker background model and Firefox's background-scripts model, verified against Mozilla's own web-ext linter. 45 unit tests, using Node's built-in test runner and jsdom, cover the security-critical sanitization logic directly.",
     ],
     defenseDiagram: true,
   },
   {
     heading: "Flare → docs-as-code migration",
+    tags: ["Information architecture", "MkDocs Material", "CI/CD"],
+    summary:
+      "Leading a migration of a 591-topic MadCap Flare help system to a docs-as-code setup on MkDocs Material, across five output targets including a Word deliverable.",
     paragraphs: [
       "I led a migration of a legacy MadCap Flare help system — 591 topics across five output targets, including HTML5 WebHelp and a Word-format client deliverable — to a docs-as-code setup built on MkDocs Material with GitHub Actions for CI/CD.",
       "I evaluated MkDocs Material against Docusaurus and picked it because it keeps the authoring experience simple for a mixed team of technical and non-technical writers: plain Markdown and YAML config, no React or Node.js to maintain.",
@@ -191,6 +187,9 @@ const projects = [
   },
   {
     heading: "Asset intake & tracking system",
+    tags: ["Google Apps Script", "Google Sheets", "No-code"],
+    summary:
+      "A browser-based asset tracking system for equipment checkout and maintenance, built entirely on Google Workspace — no separate backend or hosting.",
     paragraphs: [
       "Built an asset tracking system for equipment checkout, maintenance, and consumables, running entirely in the browser: Google Forms for intake, Apps Script for the backend, a custom web app for checkout/return and maintenance.",
       "Google Sheets is the system of record — FILTER, INDEX/MATCH, SUMPRODUCT instead of a separate database — with Drive storing per-asset photo folders and an optional Looker Studio dashboard for admins.",
@@ -207,13 +206,20 @@ const trackRecord = [
   ["Hours logged", "7,600+"],
 ];
 
-const credentials = [
-  "Kisii University — Bachelor of Arts",
-  "Software Engineering — Moringa School (2025)",
-  "Foundations of Cybersecurity — Google (2025)",
-  "Play It Safe: Manage Security Risks — Google (2025)",
-  "Corporate Finance Institute — 7 courses in financial analysis & accounting (2022)",
-  "Fundamentals of Digital Marketing — Google (2021)",
+const education = [
+  { title: "Bachelor of Arts", source: "Kisii University", year: null },
+  { title: "Software Engineering", source: "Moringa School", year: "2025" },
+];
+
+const certifications = [
+  { title: "Foundations of Cybersecurity", source: "Google", year: "2025" },
+  { title: "Play It Safe: Manage Security Risks", source: "Google", year: "2025" },
+  {
+    title: "Financial Analysis & Accounting (7 courses)",
+    source: "Corporate Finance Institute",
+    year: "2022",
+  },
+  { title: "Fundamentals of Digital Marketing", source: "Google", year: "2021" },
 ];
 ---
 
@@ -239,11 +245,12 @@ const credentials = [
   <body>
     <div class="progress-bar" id="progress-bar"></div>
 
-    <nav class="toc" aria-label="Section navigation">
-      {navItems.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
-    </nav>
+    <div class="page">
+      <nav class="toc" aria-label="Section navigation">
+        {navItems.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
+      </nav>
 
-    <main class="wrap">
+      <main class="wrap">
       <section class="doc-section hero">
         <div class="content">
           <h1 class="gradient-text">Anthony Mutisya</h1>
@@ -265,22 +272,16 @@ const credentials = [
         <p>
           Six years, four industries: ERP, manufacturing execution,
           enterprise sales, and medical software. The product changes every
-          time. What doesn't change is the gap between what engineering
-          built and what a user needs to understand to use it.
-        </p>
-        <p>
-          Closing that gap is the job. Sometimes it's a forty-page user
-          guide. Sometimes it's one error message. Lately it's meant
+          time — what doesn't is the gap between what engineering built and
+          what a user needs to understand to use it. Closing that gap is the
+          job, whether it's a forty-page user guide, one error message, or
           rebuilding the systems that produce the documentation in the first
-          place — structured authoring in MadCap Flare, metadata and
-          conditional-text patterns, single-sourcing so one source feeds
-          every output instead of five people editing five copies.
+          place.
         </p>
         <p>
-          I also have a QA background, which matters more than it sounds
-          like it should. Bad documentation usually isn't badly written —
-          it's just wrong, because nobody checked it against what the
-          product actually does. I check.
+          I also have a QA background. Bad documentation usually isn't badly
+          written — it's just wrong, because nobody checked it against what
+          the product actually does. I check.
         </p>
       </Section>
 
@@ -288,8 +289,9 @@ const credentials = [
         <h2>Principles</h2>
         <ul class="principle-list">
           {
-            principles.map((p) => (
+            principles.map((p, i) => (
               <li class="principle">
+                <span class="principle-index">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{p.term}</h3>
                 <p>{p.body}</p>
               </li>
@@ -309,9 +311,13 @@ const credentials = [
                   {job.date && <span class="job-date">{job.date}</span>}
                 </div>
                 <p class="job-role">{job.role}</p>
-                <ul class="job-bullets">
-                  {job.bullets.map((point) => <li>{point}</li>)}
-                </ul>
+                <p class="job-summary">{job.summary}</p>
+                <details class="disclosure">
+                  <summary>Details</summary>
+                  <ul class="job-bullets">
+                    {job.bullets.map((point) => <li>{point}</li>)}
+                  </ul>
+                </details>
               </li>
             ))
           }
@@ -325,9 +331,18 @@ const credentials = [
             projects.map((project) => (
               <li class="project">
                 <h3>{project.heading}</h3>
-                {project.paragraphs.map((para) => <p>{para}</p>)}
-                {project.sourcingDiagram && <SourcingDiagram />}
-                {project.defenseDiagram && <DefenseLayers />}
+                <ul class="chip-list">
+                  {project.tags.map((tag) => (
+                    <li class="chip">{tag}</li>
+                  ))}
+                </ul>
+                <p>{project.summary}</p>
+                <details class="disclosure">
+                  <summary>Read more</summary>
+                  {project.paragraphs.map((para) => <p>{para}</p>)}
+                  {project.sourcingDiagram && <SourcingDiagram />}
+                  {project.defenseDiagram && <DefenseLayers />}
+                </details>
               </li>
             ))
           }
@@ -363,11 +378,21 @@ const credentials = [
             capabilities.map((group) => (
               <div class="capability-group">
                 <h3>{group.heading}</h3>
-                <ul>
+                <ul class="capability-list">
                   {group.items.map((item) => (
-                    <li>{item}</li>
+                    <li class="capability-chip">{item}</li>
                   ))}
                 </ul>
+                {group.moreItems && (
+                  <details class="disclosure">
+                    <summary>Show {group.moreItems.length} more</summary>
+                    <ul class="capability-list">
+                      {group.moreItems.map((item) => (
+                        <li class="capability-chip">{item}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </div>
             ))
           }
@@ -393,10 +418,41 @@ const credentials = [
       </Section>
 
       <Section id="education">
-        <h2>Education &amp; credentials</h2>
-        <ul class="cert-list">
-          {credentials.map((item) => <li>{item}</li>)}
-        </ul>
+        <h2>Education &amp; certifications</h2>
+        <div class="credential-groups">
+          <div class="credential-group">
+            <h3>Education</h3>
+            <ul class="credential-list">
+              {
+                education.map((item) => (
+                  <li class="credential-chip">
+                    <span class="credential-title">{item.title}</span>
+                    <span class="credential-meta">
+                      {item.source}
+                      {item.year && ` · ${item.year}`}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="credential-group">
+            <h3>Certifications</h3>
+            <ul class="credential-list">
+              {
+                certifications.map((item) => (
+                  <li class="credential-chip">
+                    <span class="credential-title">{item.title}</span>
+                    <span class="credential-meta">
+                      {item.source}
+                      {item.year && ` · ${item.year}`}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
       </Section>
 
       <Section id="contact">
@@ -428,7 +484,8 @@ const credentials = [
           <li class="muted">Nairobi, Kenya</li>
         </ul>
       </Section>
-    </main>
+      </main>
+    </div>
 
     <style>
       .gradient-text {
@@ -474,19 +531,40 @@ const credentials = [
       .principle-list {
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 16px;
+      }
+
+      .principle {
+        background: var(--bg-panel);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 24px;
+      }
+
+      .principle-index {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent-2);
+        margin-bottom: 10px;
       }
 
       .principle h3 {
         font-size: 0.9375rem;
-        color: var(--accent);
         margin-bottom: 8px;
       }
 
       .experience-list {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 16px;
+      }
+
+      .job {
+        background: var(--bg-panel);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 24px;
       }
 
       .job-head {
@@ -509,6 +587,51 @@ const credentials = [
         font-family: var(--font-mono);
         font-size: 0.875rem;
         margin: 4px 0 12px;
+      }
+
+      .job-summary {
+        color: var(--text-muted);
+        margin-bottom: 0;
+      }
+
+      .disclosure {
+        margin-top: 14px;
+      }
+
+      .disclosure summary {
+        cursor: pointer;
+        list-style: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent-2);
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .disclosure summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .disclosure summary::before {
+        content: "+";
+        display: inline-block;
+        width: 1em;
+        text-align: center;
+      }
+
+      .disclosure[open] summary::before {
+        content: "−";
+      }
+
+      .disclosure summary:hover {
+        color: var(--accent);
+      }
+
+      .disclosure[open] summary {
+        margin-bottom: 12px;
       }
 
       .job-bullets {
@@ -536,7 +659,14 @@ const credentials = [
       .project-list {
         display: flex;
         flex-direction: column;
-        gap: 48px;
+        gap: 24px;
+      }
+
+      .project {
+        background: var(--bg-panel);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 28px;
       }
 
       .project h3 {
@@ -546,6 +676,30 @@ const credentials = [
 
       .project p {
         margin-bottom: 1em;
+      }
+
+      .chip-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .chip {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 4px 12px;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 600px) {
+        .project,
+        .job {
+          padding: 20px;
+        }
       }
 
       .sample-list {
@@ -592,25 +746,37 @@ const credentials = [
       }
 
       .capability-groups {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 32px 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
       }
 
       .capability-group h3 {
-        font-size: 0.8125rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
         color: var(--text-muted);
         margin-bottom: 14px;
       }
 
-      .capability-group li {
-        padding: 6px 0;
-        border-top: 1px solid var(--rule);
-        font-size: 0.9375rem;
+      .capability-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
-      .capability-group li:first-child {
-        border-top: none;
+      .capability-chip {
+        font-size: 0.875rem;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 8px 16px;
+        background: var(--bg-panel);
+        transition: border-color 0.15s ease;
+      }
+
+      .capability-chip:hover {
+        border-color: var(--accent);
       }
 
       .stats {
@@ -636,27 +802,51 @@ const credentials = [
         font-size: 1.125rem;
       }
 
-      .cert-list {
+      .credential-groups {
         margin-top: 4px;
         display: flex;
         flex-direction: column;
+        gap: 28px;
+      }
+
+      .credential-group h3 {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+      }
+
+      .credential-list {
+        display: flex;
+        flex-wrap: wrap;
         gap: 10px;
       }
 
-      .cert-list li {
-        font-size: 0.9375rem;
-        padding-left: 18px;
-        position: relative;
+      .credential-chip {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 10px 14px;
+        background: var(--bg-panel);
+        transition: border-color 0.15s ease;
       }
 
-      .cert-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.65em;
-        width: 6px;
-        height: 1px;
-        background: var(--accent);
+      .credential-chip:hover {
+        border-color: var(--accent);
+      }
+
+      .credential-title {
+        font-size: 0.875rem;
+      }
+
+      .credential-meta {
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        color: var(--text-muted);
       }
 
       .contact-list {
@@ -673,7 +863,6 @@ const credentials = [
       }
 
       @media (max-width: 760px) {
-        .capability-groups,
         .stats {
           grid-template-columns: minmax(0, 1fr);
         }
