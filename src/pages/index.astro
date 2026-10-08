@@ -61,9 +61,9 @@ const experience = [
     summary:
       "Leading documentation for ERP and manufacturing execution platforms, embedded into the SDLC.",
     bullets: [
-      "Design structured authoring workflows in MadCap Flare: metadata management, conditional-text patterns, single-sourcing across multiple output targets",
-      "Partner with Product, Engineering, QA, and Support to align docs with product decisions and customer needs",
-      "Integrate AI-assisted workflows into documentation review and indexing while maintaining editorial quality",
+      "Design structured authoring workflows in MadCap Flare — metadata, conditional text, single-sourcing across multiple outputs",
+      "Partner with Product, Engineering, QA, and Support to align docs with product decisions",
+      "Integrate AI-assisted review and indexing into the documentation workflow",
     ],
   },
   {
@@ -73,8 +73,8 @@ const experience = [
     summary:
       "Built usability-driven help centers and structured content systems for enterprise software.",
     bullets: [
-      "Supported QA through feature testing and validation alongside documentation work",
-      "Applied information architecture, UX/UI writing, and API documentation to improve clarity and accuracy",
+      "Supported QA through feature testing alongside documentation work",
+      "Applied information architecture and API documentation to improve clarity",
     ],
   },
   {
@@ -82,10 +82,10 @@ const experience = [
     role: "Contract Technical Writer",
     date: null,
     summary:
-      "Documented medical software for clinical workflows — compliance, precision, and usability for healthcare professionals.",
+      "Documented medical software for clinical workflows, with an emphasis on compliance and precision.",
     bullets: [
-      "Produced API documentation and UX/UI content for clinical use cases",
-      "Applied structured authoring and single-sourcing to maintain consistency across a regulated environment",
+      "Produced API documentation and UX/UI content for clinical workflows",
+      "Applied structured authoring and single-sourcing across a regulated environment",
     ],
   },
   {
@@ -95,7 +95,7 @@ const experience = [
     summary:
       "Documented medical ERP and SaaS platforms to meet healthcare compliance and clarity standards.",
     bullets: [
-      "Designed content systems that improved discoverability and reduced maintenance overhead",
+      "Designed content systems that cut maintenance overhead and improved discoverability",
     ],
   },
 ];
@@ -303,7 +303,7 @@ const certifications = [
         <h2>Experience</h2>
         <ul class="experience-list">
           {
-            experience.map((job, i) => (
+            experience.map((job) => (
               <li class="job">
                 <div class="job-head">
                   <h3>{job.company}</h3>
@@ -311,7 +311,7 @@ const certifications = [
                 </div>
                 <p class="job-role">{job.role}</p>
                 <p class="job-summary">{job.summary}</p>
-                <details class="disclosure" open={i === 0}>
+                <details class="disclosure">
                   <summary>Details</summary>
                   <ul class="job-bullets">
                     {job.bullets.map((point) => <li>{point}</li>)}
@@ -555,7 +555,14 @@ const certifications = [
       .experience-list {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 16px;
+      }
+
+      .job {
+        background: var(--bg-panel);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 24px;
       }
 
       .job-head {
@@ -687,7 +694,8 @@ const certifications = [
       }
 
       @media (max-width: 600px) {
-        .project {
+        .project,
+        .job {
           padding: 20px;
         }
       }
