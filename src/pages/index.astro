@@ -102,18 +102,6 @@ const experience = [
 
 const capabilities = [
   {
-    heading: "What I document",
-    items: [
-      "User guides & help centers",
-      "API documentation",
-      "Release notes",
-      "Technical specifications",
-      "Software architecture documentation",
-      "UX/UI writing",
-      "Standard operating procedures",
-    ],
-  },
-  {
     heading: "How I work",
     items: [
       "Structured authoring & single-sourcing",
@@ -392,17 +380,17 @@ const certifications = [
             capabilities.map((group) => (
               <div class="capability-group">
                 <h3>{group.heading}</h3>
-                <ul>
+                <ul class="capability-list">
                   {group.items.map((item) => (
-                    <li>{item}</li>
+                    <li class="capability-chip">{item}</li>
                   ))}
                 </ul>
                 {group.moreItems && (
                   <details class="disclosure">
                     <summary>Show {group.moreItems.length} more</summary>
-                    <ul>
+                    <ul class="capability-list">
                       {group.moreItems.map((item) => (
-                        <li>{item}</li>
+                        <li class="capability-chip">{item}</li>
                       ))}
                     </ul>
                   </details>
@@ -737,25 +725,37 @@ const certifications = [
       }
 
       .capability-groups {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 32px 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
       }
 
       .capability-group h3 {
-        font-size: 0.8125rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
         color: var(--text-muted);
         margin-bottom: 14px;
       }
 
-      .capability-group li {
-        padding: 6px 0;
-        border-top: 1px solid var(--rule);
-        font-size: 0.9375rem;
+      .capability-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
-      .capability-group li:first-child {
-        border-top: none;
+      .capability-chip {
+        font-size: 0.875rem;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 8px 16px;
+        background: var(--bg-panel);
+        transition: border-color 0.15s ease;
+      }
+
+      .capability-chip:hover {
+        border-color: var(--accent);
       }
 
       .stats {
@@ -842,7 +842,6 @@ const certifications = [
       }
 
       @media (max-width: 760px) {
-        .capability-groups,
         .stats {
           grid-template-columns: minmax(0, 1fr);
         }
