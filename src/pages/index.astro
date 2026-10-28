@@ -162,16 +162,28 @@ const principles = [
 const projects = [
   {
     heading: "ADO HTML Commit Previewer",
-    tags: ["Browser extension", "Security", "Chrome · Firefox · Edge"],
+    tags: ["Browser extension", "Published: Chrome · Edge · Firefox", "Security-first"],
     summary:
-      "A browser extension that fixes Azure DevOps' broken HTML preview for commits and PRs — real CSS, real images, and layered defenses against the fact that every previewed file is untrusted input.",
+      "A Manifest V3 browser extension, published on the Chrome Web Store and Firefox Add-ons, that fixes Azure DevOps' broken HTML preview for commits and PRs — real CSS, real images, and a security-first design since every previewed file is untrusted input.",
     paragraphs: [
-      "Azure DevOps' built-in preview for HTML files changed in a commit or PR has no CSS and never resolves repo-relative image paths, so reviewing exported documentation before merge was effectively impossible. I built an extension that detects commit and PR pages, lists every changed HTML file, and renders each one with real images and consistent styling.",
-      "The harder problem was authentication without a token: the extension proxies API calls through a content script running in the user's own Azure DevOps tab, so requests carry real session cookies, sidestepping the SameSite restrictions that block a direct cross-origin fetch from the extension's service worker.",
-      "Every previewed page is attacker-controlled input, so rendering goes through layered defenses: script and style stripping, a strict injected CSP, external-resource blocking so a file can't beacon out to detect it was previewed, and a sandboxed iframe with no script execution as the final backstop against any sanitizer gap, including a known mutation-XSS risk from re-serializing parsed HTML.",
-      "One manifest.json runs on Chrome, Edge, and Firefox, handling the real differences between Chrome's service-worker background model and Firefox's background-scripts model, verified against Mozilla's own web-ext linter. 45 unit tests, using Node's built-in test runner and jsdom, cover the security-critical sanitization logic directly.",
+      "Azure DevOps' built-in preview for HTML files in a commit or PR has no CSS and broken images, which makes reviewing exported documentation — MadCap Flare output, for example — nearly impossible before merge. The extension adds a \"Preview HTML\" button to commit and PR pages that opens a tab listing every changed HTML file and renders each one with its real images, pulled from the same repo at the same commit. It uses the repository's own CSS when pages link to it, falls back to a built-in stylesheet, and tells you which one was used — links between pages work too, so a reviewer can click through an entire documentation set.",
+      "Authentication works without a token: the extension proxies API calls through a content script running in the user's own Azure DevOps tab, so requests carry the existing session cookies rather than requiring a separately managed credential. It collects no data of its own.",
+      "Every previewed page is attacker-controlled input, so rendering goes through layered defenses: scripts and styles are stripped, external images and links are blocked so a committed file can't beacon out to detect that it was previewed or by whom, and a sandboxed iframe with no script execution is the final backstop against any gap in that sanitization, including a known mutation-XSS risk from re-serializing parsed HTML.",
+      "One manifest.json runs on Chrome, Edge, and Firefox, handling the real differences between Chrome's service-worker background model and Firefox's background-scripts model, verified against Mozilla's own web-ext linter. 45 unit tests, using Node's built-in test runner and jsdom, cover the security-critical sanitization logic directly — and the extension is live on the Chrome Web Store and Firefox Add-ons, with its own privacy policy and store listings for both ecosystems.",
     ],
     defenseDiagram: true,
+  },
+  {
+    heading: "Issue-to-release automation",
+    tags: ["AI pipeline", "GitHub Actions", "Claude Code"],
+    summary:
+      "A personal tooling project that takes a bug report on GitHub and carries it through to a Chrome Web Store draft, with a human decision at each point that matters.",
+    paragraphs: [
+      "An AI triage step classifies each new issue — actionable, duplicate, question, or spam — using no tools, and emails the owner. On one click, a headless Claude Code run then creates a branch, makes the change, and adds tests and a version bump.",
+      "A separate, read-only AI run reviews the diff against the original report before anything merges — review and authorship are deliberately separate passes, not the same run grading its own work. On a pass, it opens an Azure DevOps pull request and sets it to auto-complete; one more click after that builds main and uploads the new version to the Chrome Web Store for review and publishing.",
+      "Issue text is treated as untrusted input throughout: the reviewer fails closed on unclear output, AI-written text is scrubbed of links and mentions before it's posted, and generated links use one-time codes bound to localhost. Multiple people can run it safely — each run claims a report through an Azure DevOps work item reference, and it refuses to proceed without actual access to the repo.",
+      "Runs on a Windows scheduled task, using GitHub Actions and GitHub's own email notifications for alerts — no paid API key required.",
+    ],
   },
   {
     heading: "Flare → docs-as-code migration",
